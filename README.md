@@ -7,9 +7,6 @@ Woke GitHub Actions allow you to execute [`woke`](https://github.com/caitlinelfr
 
 This GitHub action uses [reviewdog](https://github.com/reviewdog/reviewdog)
 
-This is a GitHub action for [`woke`] repository for [reviewdog](https://github.com/reviewdog/reviewdog) action with release automation.
-Click `Use this template` button to create your reviewdog action :dog:!
-
 ## Inputs
 
 Inputs to configure the `woke` GitHub Actions.
@@ -33,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: caitlinelfring/woke-action-reviewdog@v1
+      - uses: caitlinelfring/woke-action-reviewdog@v0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
