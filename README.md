@@ -13,10 +13,10 @@ Inputs to configure the `woke` GitHub Actions.
 
 | Input            | Default               | Description                                                                                       |
 |------------------|-----------------------|---------------------------------------------------------------------------------------------------|
-| `args`           | `.`                   | (Optional) Additional flags to run woke with (see <https://github.com/caitlinelfring/woke#usage>) |
-| `fail-on-error`  | `false`               | (Optional) Fail the GitHub Actions check for any failures.                                        |
+| `woke_args`      | `.`                   | (Optional) Additional flags to run woke with (see <https://github.com/caitlinelfring/woke#usage>) |
+| `woke_version`   | latest                | (Optional) Release version of `woke` (defaults to latest version)                                 |
+| `fail_on_error`  | `false`               | (Optional) Fail the GitHub Actions check for any failures.                                        |
 | `workdir`        | `.`                   | (Optional) Run `woke` this working directory relative to the root directory.                      |
-| `version`        | latest                | (Optional) Release version of `woke` (defaults to latest version)                                 |
 | `github_token`   | `${{ github.token }}` | (Optional) Custom GitHub Access token (ie `${{ secrets.MY_CUSTOM_TOKEN }}`).                      |
 
 ## Usage
