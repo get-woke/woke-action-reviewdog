@@ -40,6 +40,38 @@ jobs:
           level: warning
 ```
 
+## Only Changed Files
+
+If you're interested in only running `woke` against files that have changed in a PR,
+consider something like [Get All Changed Files Action](https://github.com/marketplace/actions/get-all-changed-files). With this, you can add a workflow that looks like:
+
+```yaml
+
+name: woke
+on: [pull_request]
+jobs:
+  woke:
+    name: runner / woke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: jitterbit/get-changed-files@v1
+        id: files
+
+      - uses: get-woke/woke-action-reviewdog@v0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+          reporter: github-pr-review
+          # Change reporter level if you need.
+          # GitHub Status Check won't become failure with warning.
+          level: warning
+          # See https://github.com/marketplace/actions/get-all-changed-files
+          # for more options
+          woke-args: ${{ steps.files.outputs.added_modified }}
+```
+
 ## License
 
 This application is licensed under the MIT License, you may obtain a copy of it
