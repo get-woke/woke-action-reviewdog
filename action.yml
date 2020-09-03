@@ -2,7 +2,7 @@ name: 'Run woke with reviewdog'
 description: '🐶 Run woke on pull requests to detect non-inclusive language in your source code.'
 author: 'Caitlin Elfring (caitlinelfring)'
 inputs:
-  github_token:
+  github-token:
     description: 'GITHUB_TOKEN'
     default: '${{ github.token }}'
   workdir:
@@ -15,25 +15,25 @@ inputs:
   reporter:
     description: 'Reporter of reviewdog command [github-pr-check,github-pr-review].'
     default: 'github-pr-check'
-  filter_mode:
+  filter-mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
       Default is added.
     default: 'added'
-  fail_on_error:
+  fail-on-error:
     description: |
       Exit code for reviewdog when errors are found [true,false]
       Default is `false`.
     default: 'false'
-  reviewdog_flags:
+  reviewdog-flags:
     description: 'Additional reviewdog flags'
     default: ''
   ### Flags for woke ###
-  woke_args:
+  woke-args:
     description: 'woke arguments'
     default: '.'
     required: false
-  woke_version:
+  woke-version:
     description: 'woke version'
     default: '' # uses latest, should be pinned? # 'v0.1'
     required: false
@@ -45,15 +45,15 @@ runs:
       env:
         # INPUT_<VARIABLE_NAME> is not available in Composite run steps
         # https://github.com/actions/runner/issues/665
-        INPUT_WOKE_VERSION: ${{ inputs.woke_version }}
-        INPUT_WOKE_FLAGS: ${{ inputs.woke_args }}
-        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
-        INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
+        INPUT_WOKE_VERSION: ${{ inputs.woke-version }}
+        INPUT_WOKE_ARGS: ${{ inputs.woke-args }}
+        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+        INPUT_FAIL_ON_ERROR: ${{ inputs.fail-on-error }}
         INPUT_WORKDIR: ${{ inputs.workdir }}
         INPUT_REPORTER: ${{ inputs.reporter }}
-        INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
+        INPUT_FILTER_MODE: ${{ inputs.filter-mode }}
         INPUT_LEVEL: ${{ inputs.level }}
-        INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
+        INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog-flags }}
 
 # Ref: https://haya14busa.github.io/github-action-brandings/
 branding:

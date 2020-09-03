@@ -13,11 +13,11 @@ Inputs to configure the `woke` GitHub Actions.
 
 | Input            | Default               | Description                                                                                       |
 |------------------|-----------------------|---------------------------------------------------------------------------------------------------|
-| `woke_args`      | `.`                   | (Optional) Additional flags to run woke with (see <https://github.com/get-woke/woke#usage>) |
-| `woke_version`   | latest                | (Optional) Release version of `woke` (defaults to latest version)                                 |
-| `fail_on_error`  | `false`               | (Optional) Fail the GitHub Actions check for any failures.                                        |
+| `woke-args`      | `.`                   | (Optional) Additional flags to run woke with (see <https://github.com/get-woke/woke#usage>) |
+| `woke-version`   | latest                | (Optional) Release version of `woke` (defaults to latest version)                                 |
+| `fail-on-error`  | `false`               | (Optional) Fail the GitHub Actions check for any failures.                                        |
 | `workdir`        | `.`                   | (Optional) Run `woke` this working directory relative to the root directory.                      |
-| `github_token`   | `${{ github.token }}` | (Optional) Custom GitHub Access token (ie `${{ secrets.MY_CUSTOM_TOKEN }}`).                      |
+| `github-token`   | `${{ github.token }}` | (Optional) Custom GitHub Access token (ie `${{ secrets.MY_CUSTOM_TOKEN }}`).                      |
 
 ## Usage
 
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: get-woke/woke-action-reviewdog@v0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
           reporter: github-pr-review
           # Change reporter level if you need.
