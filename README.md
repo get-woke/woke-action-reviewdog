@@ -16,6 +16,10 @@ Inputs to configure the `woke` GitHub Actions.
 | `woke-args`      | `.`                   | (Optional) Additional flags to run woke with (see <https://github.com/get-woke/woke#usage>)  |
 | `woke-version`   | latest                | (Optional) Release version of `woke` (defaults to latest version)                            |
 | `fail-on-error`  | `false`               | (Optional) Fail the GitHub Actions check for any failures.                                   |
+| `reporter`       | `github-pr-check`     | (Optional) Reviewdog reporter. See <https://github.com/reviewdog/reviewdog#reporters>        |
+| `filter-mode`    | `added`               | (Optional) Reviewdog filter mode. See <https://github.com/reviewdog/reviewdog#filter-mode>   |
+| `level`          | `error`               | (Optional) Report level for reviewdog [info,warning,error].                                  |
+| `reviewdog-flags`|                       | (Optional) Additional reviewdog flags                                                        |
 | `workdir`        | `.`                   | (Optional) Run `woke` this working directory relative to the root directory.                 |
 | `github-token`   | `${{ github.token }}` | (Optional) Custom GitHub Access token (ie `${{ secrets.MY_CUSTOM_TOKEN }}`).                 |
 
@@ -42,37 +46,53 @@ jobs:
           # fail-on-error: true
 ```
 
-## Only Changed Files
+### Examples
 
-If you're interested in only running `woke` against files that have changed in a PR,
-consider something like [Get All Changed Files Action](https://github.com/marketplace/actions/get-all-changed-files). With this, you can add a workflow that looks like:
+#### `github-pr-review`
+
+Details: <https://github.com/reviewdog/reviewdog#reporter-github-pullrequest-review-comment--reportergithub-pr-review>
+
+This  reporter will create a PR comment with any violations found
 
 ```yaml
+reporter: github-pr-review
 
-name: woke
-on: [pull_request]
-jobs:
-  woke:
-    name: runner / woke
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: jitterbit/get-changed-files@v1
-        id: files
-
-      - uses: get-woke/woke-action-reviewdog@v0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-          reporter: github-pr-review
-          # Change reporter level if you need.
-          # GitHub Status Check won't become failure with warning.
-          level: warning
-          # See https://github.com/marketplace/actions/get-all-changed-files
-          # for more options
-          woke-args: ${{ steps.files.outputs.added_modified }}
+# Uncomment this to cause the PR check to fail
+# otherwise it will still post the comment on violations,
+# but the PR check will succeed
+fail-on-error: true
 ```
+
+![ex1](img/ex1.png)
+
+**NOTE** this reporter will not clean up duplicated comments from violations that
+exist after multiple pushes. This can cause a lot of extra comments.
+See <https://github.com/reviewdog/reviewdog/issues/568>
+
+#### `github-pr-check`
+
+Details: <https://github.com/reviewdog/reviewdog#reporter-github-checks--reportergithub-pr-check>
+
+This reporter will create annotations in the "Checks" tab of the PR, but will not comment on
+the actual PR. This is slightly better than `github-pr-review` as it doesn't clutter your
+PR with comments, but you do have to go into the `Checks` tab to view issues.
+
+```yaml
+reporter: github-pr-check
+```
+
+Checks suite with annotations of violations
+![ex2](img/ex2.png)
+
+PR checks (both will fail on violation with `fail-on-error: true`)
+![ex3](img/ex3.png)
+
+### Filter mode
+
+Details: <https://github.com/reviewdog/reviewdog#filter-mode>
+
+By default, only `added` lines will cause reviewdog to annotate/comment on lines that have
+been added in the PR. See above link for more options.
 
 ## License
 
