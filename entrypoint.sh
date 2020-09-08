@@ -20,7 +20,7 @@ echo '::endgroup::'
 
 echo '::group:: Running woke with reviewdog 🐶 ...'
 woke --output simple ${INPUT_WOKE_ARGS} \
-  | reviewdog -efm="%f:%l:%c: %m" \
+  | reviewdog -efm="%f:%l:%c: [%t] %m" \
       -name="woke" \
       -reporter="${INPUT_REPORTER:-github-pr-check}" \
       -filter-mode="${INPUT_FILTER_MODE:-added}" \
