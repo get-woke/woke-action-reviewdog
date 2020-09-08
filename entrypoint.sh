@@ -17,7 +17,7 @@ echo '::endgroup::'
 
 
 echo '::group:: Running woke with reviewdog 🐶 ...'
-woke --output simple --exit-1-on-failure="${INPUT_FAIL_ON_ERROR:-false}" ${INPUT_WOKE_ARGS} \
+woke --output simple ${INPUT_WOKE_ARGS} \
   | reviewdog -efm="%f:%l:%c: %m" \
       -name="woke" \
       -reporter="${INPUT_REPORTER:-github-pr-check}" \
