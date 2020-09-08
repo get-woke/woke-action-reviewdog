@@ -11,13 +11,13 @@ This GitHub action uses [reviewdog](https://github.com/reviewdog/reviewdog)
 
 Inputs to configure the `woke` GitHub Actions.
 
-| Input            | Default               | Description                                                                                       |
-|------------------|-----------------------|---------------------------------------------------------------------------------------------------|
-| `woke-args`      | `.`                   | (Optional) Additional flags to run woke with (see <https://github.com/get-woke/woke#usage>) |
-| `woke-version`   | latest                | (Optional) Release version of `woke` (defaults to latest version)                                 |
-| `fail-on-error`  | `false`               | (Optional) Fail the GitHub Actions check for any failures.                                        |
-| `workdir`        | `.`                   | (Optional) Run `woke` this working directory relative to the root directory.                      |
-| `github-token`   | `${{ github.token }}` | (Optional) Custom GitHub Access token (ie `${{ secrets.MY_CUSTOM_TOKEN }}`).                      |
+| Input            | Default               | Description                                                                                  |
+|------------------|-----------------------|----------------------------------------------------------------------------------------------|
+| `woke-args`      | `.`                   | (Optional) Additional flags to run woke with (see <https://github.com/get-woke/woke#usage>)  |
+| `woke-version`   | latest                | (Optional) Release version of `woke` (defaults to latest version)                            |
+| `fail-on-error`  | `false`               | (Optional) Fail the GitHub Actions check for any failures.                                   |
+| `workdir`        | `.`                   | (Optional) Run `woke` this working directory relative to the root directory.                 |
+| `github-token`   | `${{ github.token }}` | (Optional) Custom GitHub Access token (ie `${{ secrets.MY_CUSTOM_TOKEN }}`).                 |
 
 ## Usage
 
@@ -38,6 +38,8 @@ jobs:
           # Change reporter level if you need.
           # GitHub Status Check won't become failure with warning.
           level: warning
+          # Enable this to fail the check when violations are found
+          # fail-on-error: true
 ```
 
 ## Only Changed Files
